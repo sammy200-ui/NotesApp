@@ -1,12 +1,12 @@
-# NotesApp 📝
+# NotesApp 
 
 A full-stack note-taking application built with a focus on robust backend architecture and clean API design. This project demonstrates modern backend development practices including RESTful APIs, JWT authentication, and database management.
 
-## 🎯 Project Overview
+## Project Overview
 
 NotesApp is a simple yet powerful note-taking application that allows users to create, read, update, and delete notes securely. The project emphasizes backend development with proper authentication, authorization, and database management while maintaining a clean and functional frontend.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Backend
 - **Node.js** - Runtime environment
@@ -23,7 +23,7 @@ NotesApp is a simple yet powerful note-taking application that allows users to c
 - **JavaScript** - Programming language
 - **CSS** - Styling
 
-## ✨ Features
+## Features
 
 ### Backend Features
 - ✅ User registration and authentication
