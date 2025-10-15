@@ -65,7 +65,7 @@ NotesApp/
 └── README.md
 ```
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js (v14 or higher)
@@ -117,7 +117,7 @@ NotesApp/
    ```
    Frontend will run on `http://localhost:3000`
 
-## 📡 API Endpoints
+##  API Endpoints
 
 ### Authentication
 - `POST /api/auth/register` - Register a new user
@@ -130,7 +130,7 @@ NotesApp/
 - `PUT /api/notes/:id` - Update note (Protected)
 - `DELETE /api/notes/:id` - Delete note (Protected)
 
-## 🔒 Security Features
+##  Security Features
 
 - Password hashing using bcrypt
 - JWT token-based authentication
@@ -138,30 +138,21 @@ NotesApp/
 - Environment variables for sensitive data
 - Input validation and sanitization
 
-## 🎓 Learning Outcomes
 
-This project demonstrates:
-- RESTful API architecture
-- Authentication and authorization flows
-- Database schema design and relationships
-- Middleware implementation
-- Error handling and validation
-- Frontend-backend integration
-- Version control with Git
 
-## 🤝 Contributing
+##  Contributing
 
-This is a personal portfolio project, but suggestions and feedback are welcome!
+This is a personal project, but suggestions and feedback are welcome!
 
-## 📄 License
+##  License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 👨‍💻 Author
+##  Author
 
 **Sameer Pawar**
 - GitHub: [@sammy200-ui](https://github.com/sammy200-ui)
 
 ---
 
-*Built with ❤️ to showcase backend development skills*
+
