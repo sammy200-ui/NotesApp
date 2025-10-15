@@ -4,8 +4,8 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="home-content">
-        <h1>Welcome to NotesApp</h1>
-        <p>A simple and secure note-taking application</p>
+        <h1>📝 Welcome to NotesApp</h1>
+        <p>Your personal space to capture ideas, organize thoughts, and stay productive</p>
         <div className="home-buttons">
           <Link to="/login" className="btn btn-primary">
             Get Started

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import NoteCard from '../components/NoteCard';
 import NoteForm from '../components/NoteForm';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { getNotes, createNote, updateNote, deleteNote } from '../services/noteService';
 
 const Dashboard = () => {
@@ -17,7 +18,13 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const data = await getNotes();
-      setNotes(data);
+      // Sort notes: pinned notes first, then by updated date
+      const sortedNotes = data.sort((a, b) => {
+        if (a.isPinned && !b.isPinned) return -1;
+        if (!a.isPinned && b.isPinned) return 1;
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+      });
+      setNotes(sortedNotes);
       setError('');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch notes');
@@ -29,7 +36,13 @@ const Dashboard = () => {
   const handleCreateNote = async (noteData) => {
     try {
       const newNote = await createNote(noteData);
-      setNotes([newNote, ...notes]);
+      // Insert at appropriate position based on pinned status
+      const updatedNotes = [newNote, ...notes].sort((a, b) => {
+        if (a.isPinned && !b.isPinned) return -1;
+        if (!a.isPinned && b.isPinned) return 1;
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+      });
+      setNotes(updatedNotes);
       setError('');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create note');
@@ -39,7 +52,14 @@ const Dashboard = () => {
   const handleUpdateNote = async (noteData) => {
     try {
       const updated = await updateNote(noteToEdit._id, noteData);
-      setNotes(notes.map((note) => (note._id === updated._id ? updated : note)));
+      const updatedNotes = notes.map((note) => 
+        note._id === updated._id ? updated : note
+      ).sort((a, b) => {
+        if (a.isPinned && !b.isPinned) return -1;
+        if (!a.isPinned && b.isPinned) return 1;
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+      });
+      setNotes(updatedNotes);
       setNoteToEdit(null);
       setError('');
     } catch (err) {
@@ -87,7 +107,7 @@ const Dashboard = () => {
           <h2>All Notes ({notes.length})</h2>
           
           {loading ? (
-            <p>Loading notes...</p>
+            <LoadingSpinner message="Fetching your notes..." />
           ) : notes.length === 0 ? (
             <p className="no-notes">No notes yet. Create your first note above!</p>
           ) : (
