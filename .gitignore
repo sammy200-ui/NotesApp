@@ -43,3 +43,6 @@ Thumbs.db
 # Misc
 .cache/
 .temp/
+
+# Project Instructions (internal use only)
+.instructions.md
