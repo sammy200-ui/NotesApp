@@ -26,21 +26,21 @@ NotesApp is a simple yet powerful note-taking application that allows users to c
 ## Features
 
 ### Backend Features
-- ✅ User registration and authentication
-- ✅ Secure password hashing with bcrypt
-- ✅ JWT-based authentication and authorization
-- ✅ RESTful API design
-- ✅ CRUD operations for notes
-- ✅ Input validation and error handling
-- ✅ Protected routes middleware
-- ✅ MongoDB database integration
+-  User registration and authentication
+-  Secure password hashing with bcrypt
+-  JWT-based authentication and authorization
+-  RESTful API design
+-  CRUD operations for notes
+-  Input validation and error handling
+-  Protected routes middleware
+-  MongoDB database integration
 
 ### Frontend Features
-- ✅ User-friendly interface
-- ✅ Login and registration forms
-- ✅ Create, edit, and delete notes
-- ✅ View all user notes
-- ✅ Responsive design
+-  User-friendly interface
+-  Login and registration forms
+-  Create, edit, and delete notes
+-  View all user notes
+-  Responsive design
 
 ## 📁 Project Structure
 
