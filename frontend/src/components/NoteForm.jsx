@@ -33,26 +33,30 @@ const NoteForm = ({ noteToEdit, onSubmit, onCancel }) => {
 
   return (
     <form onSubmit={handleSubmit} className="note-form">
-      <h3>{noteToEdit ? 'Edit Note' : 'Create New Note'}</h3>
+      <h3>{noteToEdit ? '✏️ Edit Note' : '✨ Create New Note'}</h3>
       
       <div className="form-group">
+        <label htmlFor="title">Title</label>
         <input
+          id="title"
           type="text"
           name="title"
           value={formData.title}
           onChange={handleChange}
-          placeholder="Note title"
+          placeholder="Enter a catchy title..."
           required
           maxLength="100"
         />
       </div>
 
       <div className="form-group">
+        <label htmlFor="content">Content</label>
         <textarea
+          id="content"
           name="content"
           value={formData.content}
           onChange={handleChange}
-          placeholder="Note content"
+          placeholder="What's on your mind?"
           required
           rows="6"
           maxLength="5000"
@@ -67,7 +71,7 @@ const NoteForm = ({ noteToEdit, onSubmit, onCancel }) => {
             checked={formData.isPinned}
             onChange={handleChange}
           />
-          Pin this note
+          📌 Pin this note to the top
         </label>
       </div>
 

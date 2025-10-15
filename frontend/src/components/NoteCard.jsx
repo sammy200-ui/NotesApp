@@ -17,7 +17,7 @@ const NoteCard = ({ note, onEdit, onDelete }) => {
       <p className="note-content">{note.content}</p>
       
       <div className="note-footer">
-        <span className="note-date">{formatDate(note.updatedAt)}</span>
+        <span className="note-date">📅 {formatDate(note.updatedAt)}</span>
         <div className="note-actions">
           <button onClick={() => onEdit(note)} className="btn-icon" title="Edit">
             ✏️
