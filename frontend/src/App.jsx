@@ -9,6 +9,8 @@ import { isLoggedIn } from './utils/localStorage';
 import './App.css';
 
 function App() {
+  const userLoggedIn = isLoggedIn();
+
   return (
     <Router>
       <div className="app">
@@ -17,15 +19,15 @@ function App() {
           <Routes>
             <Route 
               path="/" 
-              element={isLoggedIn() ? <Navigate to="/dashboard" /> : <Home />} 
+              element={userLoggedIn ? <Navigate to="/dashboard" /> : <Home />} 
             />
             <Route 
               path="/login" 
-              element={isLoggedIn() ? <Navigate to="/dashboard" /> : <Login />} 
+              element={userLoggedIn ? <Navigate to="/dashboard" /> : <Login />} 
             />
             <Route 
               path="/register" 
-              element={isLoggedIn() ? <Navigate to="/dashboard" /> : <Register />} 
+              element={userLoggedIn ? <Navigate to="/dashboard" /> : <Register />} 
             />
             <Route
               path="/dashboard"

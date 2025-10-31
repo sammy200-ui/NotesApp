@@ -6,87 +6,74 @@ import { getNotes, createNote, updateNote, deleteNote } from '../services/noteSe
 
 const Dashboard = () => {
   const [notes, setNotes] = useState([]);
-  const [noteToEdit, setNoteToEdit] = useState(null);
+  const [editingNote, setEditingNote] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchNotes();
+    loadNotes();
   }, []);
 
-  const fetchNotes = async () => {
+  const loadNotes = async () => {
     try {
       setLoading(true);
       const data = await getNotes();
-      // Sort notes: pinned notes first, then by updated date
-      const sortedNotes = data.sort((a, b) => {
-        if (a.isPinned && !b.isPinned) return -1;
-        if (!a.isPinned && b.isPinned) return 1;
-        return new Date(b.updatedAt) - new Date(a.updatedAt);
-      });
-      setNotes(sortedNotes);
-      setError('');
+      setNotes(data);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to fetch notes');
+      setError('Failed to load notes');
+      console.log(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleCreateNote = async (noteData) => {
+  const handleCreate = async (noteData) => {
     try {
       const newNote = await createNote(noteData);
-      // Insert at appropriate position based on pinned status
-      const updatedNotes = [newNote, ...notes].sort((a, b) => {
-        if (a.isPinned && !b.isPinned) return -1;
-        if (!a.isPinned && b.isPinned) return 1;
-        return new Date(b.updatedAt) - new Date(a.updatedAt);
-      });
-      setNotes(updatedNotes);
-      setError('');
+      setNotes([newNote, ...notes]);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to create note');
+      setError('Could not create note');
     }
   };
 
-  const handleUpdateNote = async (noteData) => {
+  const handleUpdate = async (noteData) => {
     try {
-      const updated = await updateNote(noteToEdit._id, noteData);
-      const updatedNotes = notes.map((note) => 
+      const updated = await updateNote(editingNote._id, noteData);
+      setNotes(notes.map(note => 
         note._id === updated._id ? updated : note
-      ).sort((a, b) => {
-        if (a.isPinned && !b.isPinned) return -1;
-        if (!a.isPinned && b.isPinned) return 1;
-        return new Date(b.updatedAt) - new Date(a.updatedAt);
-      });
-      setNotes(updatedNotes);
-      setNoteToEdit(null);
-      setError('');
+      ));
+      setEditingNote(null);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to update note');
+      setError('Failed to update note');
     }
   };
 
-  const handleDeleteNote = async (id) => {
-    if (window.confirm('Are you sure you want to delete this note?')) {
+  const handleDelete = async (id) => {
+    if (window.confirm('Delete this note?')) {
       try {
         await deleteNote(id);
-        setNotes(notes.filter((note) => note._id !== id));
-        setError('');
+        setNotes(notes.filter(note => note._id !== id));
       } catch (err) {
-        setError(err.response?.data?.message || 'Failed to delete note');
+        setError('Could not delete note');
       }
     }
   };
 
-  const handleEditClick = (note) => {
-    setNoteToEdit(note);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleEdit = (note) => {
+    setEditingNote(note);
+    window.scrollTo(0, 0);
   };
 
-  const handleCancelEdit = () => {
-    setNoteToEdit(null);
+  const cancelEdit = () => {
+    setEditingNote(null);
   };
+
+  // sort pinned notes first
+  const sortedNotes = [...notes].sort((a, b) => {
+    if (a.isPinned && !b.isPinned) return -1;
+    if (!a.isPinned && b.isPinned) return 1;
+    return new Date(b.updatedAt) - new Date(a.updatedAt);
+  });
 
   return (
     <div className="dashboard-container">
@@ -97,9 +84,9 @@ const Dashboard = () => {
 
         <div className="note-form-container">
           <NoteForm
-            noteToEdit={noteToEdit}
-            onSubmit={noteToEdit ? handleUpdateNote : handleCreateNote}
-            onCancel={handleCancelEdit}
+            noteToEdit={editingNote}
+            onSubmit={editingNote ? handleUpdate : handleCreate}
+            onCancel={cancelEdit}
           />
         </div>
 
@@ -107,17 +94,17 @@ const Dashboard = () => {
           <h2>All Notes ({notes.length})</h2>
           
           {loading ? (
-            <LoadingSpinner message="Fetching your notes..." />
+            <LoadingSpinner message="Loading notes..." />
           ) : notes.length === 0 ? (
-            <p className="no-notes">No notes yet. Create your first note above!</p>
+            <p className="no-notes">No notes yet. Create one above!</p>
           ) : (
             <div className="notes-grid">
-              {notes.map((note) => (
+              {sortedNotes.map(note => (
                 <NoteCard
                   key={note._id}
                   note={note}
-                  onEdit={handleEditClick}
-                  onDelete={handleDeleteNote}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
                 />
               ))}
             </div>

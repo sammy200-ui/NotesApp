@@ -1,65 +1,58 @@
 import { useState, useEffect } from 'react';
 
 const NoteForm = ({ noteToEdit, onSubmit, onCancel }) => {
-  const [formData, setFormData] = useState({
-    title: '',
-    content: '',
-    isPinned: false,
-  });
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [isPinned, setIsPinned] = useState(false);
 
+  // load note data if editing
   useEffect(() => {
     if (noteToEdit) {
-      setFormData({
-        title: noteToEdit.title,
-        content: noteToEdit.content,
-        isPinned: noteToEdit.isPinned || false,
-      });
+      setTitle(noteToEdit.title);
+      setContent(noteToEdit.content);
+      setIsPinned(noteToEdit.isPinned || false);
+    } else {
+      setTitle('');
+      setContent('');
+      setIsPinned(false);
     }
   }, [noteToEdit]);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value,
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
-    setFormData({ title: '', content: '', isPinned: false });
+    onSubmit({ title, content, isPinned });
+    
+    // clear form
+    if (!noteToEdit) {
+      setTitle('');
+      setContent('');
+      setIsPinned(false);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="note-form">
-      <h3>{noteToEdit ? '✏️ Edit Note' : '✨ Create New Note'}</h3>
+      <h3>{noteToEdit ? 'Edit Note' : 'Create New Note'}</h3>
       
       <div className="form-group">
-        <label htmlFor="title">Title</label>
+        <label>Title</label>
         <input
-          id="title"
           type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          placeholder="Enter a catchy title..."
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Note title"
           required
-          maxLength="100"
         />
       </div>
 
       <div className="form-group">
-        <label htmlFor="content">Content</label>
+        <label>Content</label>
         <textarea
-          id="content"
-          name="content"
-          value={formData.content}
-          onChange={handleChange}
-          placeholder="What's on your mind?"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Write your note here..."
           required
           rows="6"
-          maxLength="5000"
         />
       </div>
 
@@ -67,17 +60,16 @@ const NoteForm = ({ noteToEdit, onSubmit, onCancel }) => {
         <label>
           <input
             type="checkbox"
-            name="isPinned"
-            checked={formData.isPinned}
-            onChange={handleChange}
+            checked={isPinned}
+            onChange={(e) => setIsPinned(e.target.checked)}
           />
-          📌 Pin this note to the top
+          Pin to top
         </label>
       </div>
 
       <div className="form-buttons">
         <button type="submit" className="btn btn-primary">
-          {noteToEdit ? 'Update Note' : 'Create Note'}
+          {noteToEdit ? 'Update' : 'Create'}
         </button>
         {noteToEdit && (
           <button type="button" onClick={onCancel} className="btn btn-secondary">
