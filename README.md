@@ -42,28 +42,6 @@ NotesApp is a simple yet powerful note-taking application that allows users to c
 -  View all user notes
 -  Responsive design
 
-## 📁 Project Structure
-
-```
-NotesApp/
-├── backend/
-│   ├── config/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── server.js
-│   └── package.json
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── App.js
-│   │   └── index.js
-│   └── package.json
-└── README.md
-```
 
 ##  Getting Started
 
