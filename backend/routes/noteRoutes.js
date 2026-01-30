@@ -9,7 +9,6 @@ const {
 } = require('../controllers/noteController');
 const { protect } = require('../middleware/authMiddleware');
 
-// All note routes are protected
 router.route('/').get(protect, getNotes).post(protect, createNote);
 
 router
