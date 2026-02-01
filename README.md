@@ -17,6 +17,7 @@ NotesApp is a simple yet powerful note-taking application that allows users to c
 - **bcrypt** - Password hashing
 - **dotenv** - Environment variable management
 - **cors** - Cross-Origin Resource Sharing
+- **Groq SDK** - AI-powered features (LLaMA 3.1)
 
 ### Frontend
 - **React** - UI library
@@ -34,6 +35,7 @@ NotesApp is a simple yet powerful note-taking application that allows users to c
 -  Input validation and error handling
 -  Protected routes middleware
 -  MongoDB database integration
+-  **AI-Powered Features** (Groq API integration)
 
 ### Frontend Features
 -  User-friendly interface
@@ -41,6 +43,7 @@ NotesApp is a simple yet powerful note-taking application that allows users to c
 -  Create, edit, and delete notes
 -  View all user notes
 -  Responsive design
+-  **AI Tools** - Summarize, Expand, Improve Writing, Auto-generate Tags
 
 
 ##  Getting Started
@@ -71,7 +74,10 @@ NotesApp is a simple yet powerful note-taking application that allows users to c
    PORT=5000
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret_key
+   GROQ_API_KEY=your_groq_api_key
    ```
+
+   > 💡 Get your free Groq API key at [console.groq.com](https://console.groq.com)
 
 4. **Setup Frontend**
    ```bash
@@ -107,6 +113,12 @@ NotesApp is a simple yet powerful note-taking application that allows users to c
 - `POST /api/notes` - Create new note (Protected)
 - `PUT /api/notes/:id` - Update note (Protected)
 - `DELETE /api/notes/:id` - Delete note (Protected)
+
+### AI Features (Powered by Groq)
+- `POST /api/ai/summarize` - Summarize note content (Protected)
+- `POST /api/ai/expand` - Expand note with more details (Protected)
+- `POST /api/ai/improve` - Fix grammar and improve writing (Protected)
+- `POST /api/ai/tags` - Auto-generate tags for a note (Protected)
 
 ##  Security Features
 
