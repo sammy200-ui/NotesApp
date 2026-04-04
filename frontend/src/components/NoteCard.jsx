@@ -1,9 +1,4 @@
-import { useState } from 'react';
-import AITools from './AITools';
-
-const NoteCard = ({ note, onEdit, onDelete, onUpdate }) => {
-  const [showAI, setShowAI] = useState(false);
-
+const NoteCard = ({ note, onEdit, onDelete }) => {
   // format the date 
   const formatDate = (date) => {
     const d = new Date(date);
@@ -12,12 +7,6 @@ const NoteCard = ({ note, onEdit, onDelete, onUpdate }) => {
       month: 'short',
       day: 'numeric'
     });
-  };
-
-  const handleAIContentUpdate = (newContent) => {
-    if (onUpdate) {
-      onUpdate(note._id, { ...note, content: newContent });
-    }
   };
 
   return (
@@ -32,13 +21,6 @@ const NoteCard = ({ note, onEdit, onDelete, onUpdate }) => {
       <div className="note-footer">
         <span className="note-date">{formatDate(note.updatedAt)}</span>
         <div className="note-actions">
-          <button 
-            onClick={() => setShowAI(!showAI)} 
-            className="btn-icon btn-ai"
-            title="AI Tools"
-          >
-            AI
-          </button>
           <button onClick={() => onEdit(note)} className="btn-icon">
             Edit
           </button>
@@ -47,13 +29,6 @@ const NoteCard = ({ note, onEdit, onDelete, onUpdate }) => {
           </button>
         </div>
       </div>
-
-      {showAI && (
-        <AITools 
-          note={note} 
-          onContentUpdate={handleAIContentUpdate}
-        />
-      )}
     </div>
   );
 };

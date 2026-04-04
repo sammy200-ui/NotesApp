@@ -48,21 +48,6 @@ const Dashboard = () => {
     }
   };
 
-  const handleAIUpdate = async (noteId, noteData) => {
-    try {
-      const updated = await updateNote(noteId, {
-        title: noteData.title,
-        content: noteData.content,
-        isPinned: noteData.isPinned
-      });
-      setNotes(notes.map(note => 
-        note._id === updated._id ? updated : note
-      ));
-    } catch (err) {
-      setError('Failed to apply AI changes');
-    }
-  };
-
   const handleDelete = async (id) => {
     if (window.confirm('Delete this note?')) {
       try {
@@ -120,7 +105,6 @@ const Dashboard = () => {
                   note={note}
                   onEdit={handleEdit}
                   onDelete={handleDelete}
-                  onUpdate={handleAIUpdate}
                 />
               ))}
             </div>
